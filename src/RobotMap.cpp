@@ -82,7 +82,7 @@ void RobotMap::init() {
     armPIDArmPosition.reset(new Encoder(4, 5, false, Encoder::k4X));
     lw->AddSensor("ArmPID", "ArmPosition", armPIDArmPosition);
     armPIDArmPosition->SetDistancePerPulse(1.0);
-    armPIDArmPosition->SetPIDSourceType(PIDSourceType::kRate);
+    armPIDArmPosition->SetPIDSourceType(PIDSourceType::kDisplacement);
     shooterWheelsShooter2.reset(new CANTalon(8));
     lw->AddActuator("ShooterWheels", "Shooter2", shooterWheelsShooter2);
     

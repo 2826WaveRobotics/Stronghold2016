@@ -4,9 +4,9 @@
 #define WAVECONSTANTS_H
 
 // StartingLocation command writes to this variable so that the Auto Mode sequence knows how far to drive and how much to turn
- static int g_startingLocation;
- static double g_courtyardDistance;
- static double g_shootAngle;
+ //static int g_startingLocation;
+ //static double g_courtyardDistance;
+ //static double g_shootAngle;
 
 
  // Distance is in inches for how far we need to drive before stopping to shoot.

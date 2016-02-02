@@ -1,5 +1,6 @@
 #include "AutoDriveDistance.h"
 #include "../Robot.h"
+#include "../AutonomousConstants.h"
 
 AutoDriveDistance::AutoDriveDistance(double maxDistance, double power, float heading, bool useGlobalDistance){
 	Requires(Robot::drivePID.get());
@@ -15,7 +16,8 @@ void AutoDriveDistance::Initialize()
 {
 	if(m_useGlobalDistance)
 	{
-		m_distance = g_courtyardDistance * m_distance;
+		AutonomousConstants autoConst;
+		m_distance = autoConst.GetDistanceToTravel() * m_distance;
 	}
 
 	Robot::drivePID->ResetEncoders();

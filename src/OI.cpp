@@ -15,7 +15,6 @@
 #include "SmartDashboard/SmartDashboard.h"
 #include "Commands/AutoChevalDeFrise.h"
 #include "Commands/AutoDrawbridge.h"
-
 #include "Commands/AutoLowBar.h"
 #include "Commands/AutoMoat.h"
 #include "Commands/AutoPortcullis.h"
@@ -26,6 +25,7 @@
 #include "Commands/AutonomousCommand.h"
 #include "Commands/DefenseCrossed.h"
 #include "Commands/SetArmPosition.h"
+#include "Commands/SetHeadPosition.h"
 #include "Commands/Shoot.h"
 #include "Commands/StartingLocation.h"
 
