@@ -25,7 +25,9 @@
 #include "Commands/AutonomousCommand.h"
 #include "Commands/DefenseCrossed.h"
 #include "Commands/SetArmPosition.h"
-#include "Commands/SetHeadPosition.h"
+#include "Commands/SetHoodPosition.h"
+#include "Commands/SetShooterWheelSpeed.h"
+#include "Commands/SetTurretPosition.h"
 #include "Commands/Shoot.h"
 #include "Commands/StartingLocation.h"
 

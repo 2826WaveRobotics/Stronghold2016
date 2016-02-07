@@ -1,11 +1,13 @@
 #include "AutoDrivePower.h"
 #include "../Robot.h"
+#include <iostream>
 
 AutoDrivePower::AutoDrivePower(double power, float heading){
 	Requires(Robot::drivePID.get());
-	std::cout << "AutoDrivePower: Construct" << std::endl;
+	std::cout << "AutoDrivePower construct - start" << std::endl;
 	m_power = power;
 	m_heading = heading;
+	std::cout << "   AutoDrivePower construct - end" << std::endl;
 }
 
 void AutoDrivePower::Initialize()

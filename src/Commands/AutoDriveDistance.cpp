@@ -1,15 +1,18 @@
 #include "AutoDriveDistance.h"
 #include "../Robot.h"
 #include "../AutonomousConstants.h"
+#include <iostream>
 
 AutoDriveDistance::AutoDriveDistance(double maxDistance, double power, float heading, bool useGlobalDistance){
 	Requires(Robot::drivePID.get());
-	std::cout << "AutoDriveDistance: Construct" << std::endl;
+	std::cout << "AutoDriveDistance construct - start" << std::endl;
 	m_distance = maxDistance;
 	m_power = power;
 	m_heading = heading;
 	m_distanceTraveled = 0;
 	m_useGlobalDistance = useGlobalDistance;
+	std::cout << "   AutoDriveDistance construct - end" << std::endl;
+
 }
 
 void AutoDriveDistance::Initialize()

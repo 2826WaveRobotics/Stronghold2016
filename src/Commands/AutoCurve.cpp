@@ -1,10 +1,13 @@
 #include "AutoCurve.h"
 #include "../Robot.h"
+#include <iostream>
 
 AutoCurve::AutoCurve(double angle)
 {
+	std::cout << "AutoCurve(angle) construct - start" << std::endl;
 	Requires(Robot::drivePID.get());
 	m_angle = angle;
+	std::cout << "   AutoCurve(angle) construct - done" << std::endl;
 }
 
 void AutoCurve::Initialize()
