@@ -38,3 +38,21 @@ void GrappleClimb::InitDefaultCommand() {
 // Put methods for controlling this subsystem
 // here. Call these from Commands.
 
+void GrappleClimb::setGrappleState(GrappleState state) {
+	if(state == Grapple_Open){
+	grappleRelease.get()->Set(true);
+	}
+	else{
+		grappleRelease.get()->Set(false);
+	}
+}
+
+void GrappleClimb::setClimbState(ClimbState state) {
+	if(state == Climb_Open){
+		climbRelease.get()->Set(true);
+	}
+	else {
+		climbRelease.get()->Set(false);
+	}
+}
+

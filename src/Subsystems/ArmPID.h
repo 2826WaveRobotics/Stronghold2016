@@ -43,6 +43,7 @@ class ArmPID: public PIDSubsystem {
 	float GetArmAngle();
 	float ConvertInchesToAngle(float inches);
 
+
 };
 
 #endif

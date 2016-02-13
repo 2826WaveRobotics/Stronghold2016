@@ -73,6 +73,14 @@ public:
 
 private:
 
+	float shooterWheelValR;
+	float shooterWheelValL;
+
+	bool m_lastButtonY;
+	bool m_lastButtonX;
+	bool m_lastButtonB;
+	bool m_lastButtonA;
+
 	SendableChooser* m_defenseSelector;
 	SendableChooser* m_locationSelector;
 };
