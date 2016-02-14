@@ -71,23 +71,23 @@ Children:
     - Children: []
       Properties:
         Channel A Channel (Digital): !!robotbuilder.data.properties.ChoicesProperty
-          choices: &id006 ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10',
+          choices: &id008 ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10',
             '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22',
             '23', '24', '25']
           default: '0'
           name: Channel A Channel (Digital)
-          validators: &id007 [DigitalChannel]
+          validators: &id009 [DigitalChannel]
           value: '0'
         Distance Per Pulse: !!robotbuilder.data.properties.DoubleProperty {default: 1,
           name: Distance Per Pulse, validators: null, value: 1.0}
         PID Source: !!robotbuilder.data.properties.ChoicesProperty
-          choices: &id008 [kDisplacement, kRate]
+          choices: &id010 [kDisplacement, kRate]
           default: kRate
           name: PID Source
           validators: null
           value: kRate
         Encoding Type: !!robotbuilder.data.properties.ChoicesProperty
-          choices: &id009 [k4X, k2X, k1X]
+          choices: &id011 [k4X, k2X, k1X]
           default: k4X
           name: Encoding Type
           validators: null
@@ -95,12 +95,12 @@ Children:
         Reverse Direction: !!robotbuilder.data.properties.BooleanProperty {default: false,
           name: Reverse Direction, validators: null, value: false}
         Channel B Channel (Digital): !!robotbuilder.data.properties.ChoicesProperty
-          choices: &id010 ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10',
+          choices: &id012 ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10',
             '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22',
             '23', '24', '25']
           default: '0'
           name: Channel B Channel (Digital)
-          validators: &id011 [DigitalChannel]
+          validators: &id013 [DigitalChannel]
           value: '1'
       Base: Quadrature Encoder
       Name: DriveEncoder
@@ -223,7 +223,7 @@ Children:
         default: 0
         name: Input
         type: PIDSource
-        validators: &id012 [ChildDropdownSelected]
+        validators: &id006 [ChildDropdownSelected]
         value: DrivePID DriveEncoder
       Maximum Output: !!robotbuilder.data.properties.DoubleProperty {default: 1, name: Maximum Output,
         validators: null, value: 1.0}
@@ -231,7 +231,7 @@ Children:
         default: 0
         name: Output
         type: PIDOutput
-        validators: &id013 [ChildDropdownSelected]
+        validators: &id007 [ChildDropdownSelected]
         value: DrivePID LeftBack
       Default Command: !!robotbuilder.data.properties.TypeSelectionProperty {default: None,
         name: Default Command, type: Command, validators: null, value: None}
@@ -262,36 +262,14 @@ Children:
       Name: ArmMotorLeft
     - Children: []
       Properties:
-        Channel A Channel (Digital): !!robotbuilder.data.properties.ChoicesProperty
-          choices: *id006
+        Input Channel (Analog): !!robotbuilder.data.properties.ChoicesProperty
+          choices: ['0', '1', '2', '3', '4', '5', '6', '7']
           default: '0'
-          name: Channel A Channel (Digital)
-          validators: *id007
-          value: '4'
-        Distance Per Pulse: !!robotbuilder.data.properties.DoubleProperty {default: 1,
-          name: Distance Per Pulse, validators: null, value: 1.0}
-        PID Source: !!robotbuilder.data.properties.ChoicesProperty
-          choices: *id008
-          default: kRate
-          name: PID Source
-          validators: null
-          value: kDisplacement
-        Encoding Type: !!robotbuilder.data.properties.ChoicesProperty
-          choices: *id009
-          default: k4X
-          name: Encoding Type
-          validators: null
-          value: k4X
-        Reverse Direction: !!robotbuilder.data.properties.BooleanProperty {default: false,
-          name: Reverse Direction, validators: null, value: false}
-        Channel B Channel (Digital): !!robotbuilder.data.properties.ChoicesProperty
-          choices: *id010
-          default: '0'
-          name: Channel B Channel (Digital)
-          validators: *id011
-          value: '5'
-      Base: Quadrature Encoder
-      Name: ArmPosition
+          name: Input Channel (Analog)
+          validators: [AnalogInput]
+          value: '0'
+      Base: Analog Input
+      Name: ArmAngle
     Properties:
       Limit Output: !!robotbuilder.data.properties.BooleanProperty {default: false,
         name: Limit Output, validators: null, value: false}
@@ -327,15 +305,15 @@ Children:
         default: 0
         name: Input
         type: PIDSource
-        validators: *id012
-        value: ArmPID ArmPosition
+        validators: *id006
+        value: ArmPID ArmAngle
       Maximum Output: !!robotbuilder.data.properties.DoubleProperty {default: 1, name: Maximum Output,
         validators: null, value: 1.0}
       Output: !!robotbuilder.data.properties.ChildSelectionProperty
         default: 0
         name: Output
         type: PIDOutput
-        validators: *id013
+        validators: *id007
         value: ArmPID ArmMotorRight
       Default Command: !!robotbuilder.data.properties.TypeSelectionProperty {default: None,
         name: Default Command, type: Command, validators: null, value: None}
@@ -383,21 +361,21 @@ Children:
     - Children: []
       Properties:
         Channel A Channel (Digital): !!robotbuilder.data.properties.ChoicesProperty
-          choices: *id006
+          choices: *id008
           default: '0'
           name: Channel A Channel (Digital)
-          validators: *id007
+          validators: *id009
           value: '2'
         Distance Per Pulse: !!robotbuilder.data.properties.DoubleProperty {default: 1,
           name: Distance Per Pulse, validators: null, value: 1.0}
         PID Source: !!robotbuilder.data.properties.ChoicesProperty
-          choices: *id008
+          choices: *id010
           default: kRate
           name: PID Source
           validators: null
           value: kRate
         Encoding Type: !!robotbuilder.data.properties.ChoicesProperty
-          choices: *id009
+          choices: *id011
           default: k4X
           name: Encoding Type
           validators: null
@@ -405,10 +383,10 @@ Children:
         Reverse Direction: !!robotbuilder.data.properties.BooleanProperty {default: false,
           name: Reverse Direction, validators: null, value: false}
         Channel B Channel (Digital): !!robotbuilder.data.properties.ChoicesProperty
-          choices: *id010
+          choices: *id012
           default: '0'
           name: Channel B Channel (Digital)
-          validators: *id011
+          validators: *id013
           value: '3'
       Base: Quadrature Encoder
       Name: ShooterPosition
@@ -467,7 +445,7 @@ Children:
         default: 0
         name: Input
         type: PIDSource
-        validators: *id012
+        validators: *id006
         value: ShooterHeadPID ShooterPosition
       Maximum Output: !!robotbuilder.data.properties.DoubleProperty {default: 1, name: Maximum Output,
         validators: null, value: 1.0}
@@ -475,7 +453,7 @@ Children:
         default: 0
         name: Output
         type: PIDOutput
-        validators: *id013
+        validators: *id007
         value: ShooterHeadPID Trajectory
       Default Command: !!robotbuilder.data.properties.TypeSelectionProperty {default: None,
         name: Default Command, type: Command, validators: null, value: None}
@@ -1276,10 +1254,10 @@ Children:
       Requires: !!robotbuilder.data.properties.TypeSelectionProperty {default: None,
         name: Requires, type: Subsystem, validators: null, value: ShooterHeadPID}
       Parameter presets: !!robotbuilder.data.properties.ParameterSetProperty
-        default: &id021 []
+        default: []
         name: Parameter presets
         validators: null
-        value: *id021
+        value: []
       Button on SmartDashboard: !!robotbuilder.data.properties.BooleanProperty {default: true,
         name: Button on SmartDashboard, validators: null, value: false}
     Base: Command

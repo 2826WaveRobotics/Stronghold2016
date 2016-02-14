@@ -15,7 +15,7 @@
 #include "DefenseCrossed.h"
 #include "AutoDrivePower.h"
 #include "../WaveConstants.h"
-#include "Shoot.h"
+#include "FireSequence.h"
 #include "SetTurretPosition.h"
 
 
@@ -51,7 +51,7 @@ AutoMoat::AutoMoat() {
 	AddSequential(new AutoDriveDistance(50, .5, 0, true));
 
 	AddSequential(new SetTurretPosition(1, true));
-	AddSequential(new Shoot ());
+	AddSequential(new FireSequence ());
 
 	//Backing over the Defense
 	AddSequential(new AutoDriveDistance(-1, -.5, 0, true));

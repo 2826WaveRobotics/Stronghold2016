@@ -15,7 +15,7 @@
 #include "DefenseCrossed.h"
 #include "AutoDrivePower.h"
 #include "../WaveConstants.h"
-#include "Shoot.h"
+#include "FireSequence.h"
 #include "SetArmPosition.h"
 #include "AutoCurve.h"
 #include "SetTurretPosition.h"
@@ -53,7 +53,7 @@ AutoChevalDeFrise::AutoChevalDeFrise() {
 	AddSequential(new AutoDriveDistance(1, .5, 0, true));
 
 	AddSequential(new SetTurretPosition(1, true));
-	AddSequential(new Shoot ());
+	AddSequential(new FireSequence ());
 
 	//Turn Around and Drive back over the Defense
 	AddSequential(new AutoCurve(180));

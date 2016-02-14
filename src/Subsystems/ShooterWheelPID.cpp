@@ -44,6 +44,8 @@ ShooterWheelPID::ShooterWheelPID() : PIDSubsystem("ShooterWheelPID", 1.0, 0.0, 0
     // SetSetpoint() -  Sets where the PID controller should move the system
     //                  to
     // Enable() - Enables the PID controller.
+    StopWheel();
+    m_buttonWheelSpeed = 0;
 }
 
 double ShooterWheelPID::ReturnPIDInput() {
@@ -95,4 +97,57 @@ void ShooterWheelPID::SetSpeed(double speed){
 
 double ShooterWheelPID::GetSpeed(){
 	return GetPIDController()->GetSetpoint();
+}
+
+void ShooterWheelPID::IncreaseWheelOutput_5()
+{
+	StopWheel();
+	m_buttonWheelSpeed += 0.05;
+	if(m_buttonWheelSpeed > 1.0)
+	{
+		m_buttonWheelSpeed = 1.0;
+	}
+	shooter1.get()->Set(m_buttonWheelSpeed);
+	shooter2.get()->Set(m_buttonWheelSpeed);
+}
+
+void ShooterWheelPID::DecreaseWheelOutput_5()
+{
+	StopWheel();
+	m_buttonWheelSpeed -= 0.05;
+	if(m_buttonWheelSpeed < -1.0)
+	{
+		m_buttonWheelSpeed = -1.0;
+	}
+	shooter1.get()->Set(m_buttonWheelSpeed);
+	shooter2.get()->Set(m_buttonWheelSpeed);
+}
+
+void ShooterWheelPID::IncreaseWheelOutput_1()
+{
+	StopWheel();
+	m_buttonWheelSpeed += 0.01;
+	if(m_buttonWheelSpeed > 1.0)
+	{
+		m_buttonWheelSpeed = 1.0;
+	}
+	shooter1.get()->Set(m_buttonWheelSpeed);
+	shooter2.get()->Set(m_buttonWheelSpeed);
+}
+
+void ShooterWheelPID::DecreaseWheelOutput_1()
+{
+	StopWheel();
+	m_buttonWheelSpeed += 0.05;
+	if(m_buttonWheelSpeed < -1.0)
+	{
+		m_buttonWheelSpeed = -1.0;
+	}
+	shooter1.get()->Set(m_buttonWheelSpeed);
+	shooter2.get()->Set(m_buttonWheelSpeed);
+}
+
+void ShooterWheelPID::KillWheels(){
+	shooter1.get()->Set(0);
+	shooter2.get()->Set(0);
 }

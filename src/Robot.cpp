@@ -110,9 +110,8 @@ void Robot::TeleopInit() {
 	m_lastButtonA = false;
 	m_lastButtonB = false;
 
+	std::cout << "Teleop Init" << std::endl;
 
-	RobotMap::shooterWheelPIDShooter1->Set(.5);
-	RobotMap::shooterWheelPIDShooter2->Set(.5);
 }
 
 
@@ -126,16 +125,16 @@ void Robot::TeleopPeriodic() {
 	float rightDrive = oi.get()->getDriverJoystick()->GetRawAxis(5);
 	drivePID.get()->robotDrive41.get()->TankDrive(leftDrive, rightDrive);
 
-	std::cout<<"Robot Left Drive "<<leftDrive;
-	std::cout<<" Robot Right Drive "<<rightDrive;
-
-	std::cout<< " Right Encoder " << RobotMap::drivePIDDriveEncoderRight->Get();
-	std::cout<< " Left Encoder  " << RobotMap::drivePIDDriveEncoderLeft->Get();
-
-	std::cout<< " PID output  " << drivePID.get()->GetPIDOutput();
-	std::cout<< " Yaw  " << drivePID.get()->GetYaw();
-	std::cout<< " Pitch " << drivePID.get()->GetPitch();
-	std::cout<< " Roll " << drivePID.get()->GetRoll();
+//	std::cout<<"Robot Left Drive "<<leftDrive;
+//	std::cout<<" Robot Right Drive "<<rightDrive;
+//
+//	std::cout<< " Right Encoder " << RobotMap::drivePIDDriveEncoderRight->Get();
+//	std::cout<< " Left Encoder  " << RobotMap::drivePIDDriveEncoderLeft->Get();
+//
+//	std::cout<< " PID output  " << drivePID.get()->GetPIDOutput();
+//	std::cout<< " Yaw  " << drivePID.get()->GetYaw();
+//	std::cout<< " Pitch " << drivePID.get()->GetPitch();
+//	std::cout<< " Roll " << drivePID.get()->GetRoll();
 
 	//Arm
 
@@ -144,76 +143,79 @@ void Robot::TeleopPeriodic() {
 	RobotMap::armPIDArmMotorRight->Set(armMotorPower/2);
 	RobotMap::armPIDArmMotorLeft->Set(armMotorPower/2);
 
-	std::cout<<" Arm Position " << RobotMap::armPIDArmPosition->Get();
-	std::cout<<" Low Bar Prox 1 " << RobotMap::armPIDLowBarProx1->Get();
-	std::cout<<" Low Bar Prox 2 " << RobotMap::armPIDLowBarProx2->Get();
-
-	std::cout<<" Arm Motor Value "<< armMotorPower/2;
-
-	std::cout<<" Arm Angle  " << armPID.get()->GetArmAngle();
+//	std::cout<<" Arm Position " << RobotMap::armPIDArmPosition->Get();
+//	std::cout<<" Low Bar Prox 1 " << RobotMap::armPIDLowBarProx1->Get();
+//	std::cout<<" Low Bar Prox 2 " << RobotMap::armPIDLowBarProx2->Get();
+//
+//	std::cout<<" Arm Motor Value "<< armMotorPower/2;
+//
+//	std::cout<<" Arm Angle  " << armPID.get()->GetArmAngle();
 
 	//std::cout<<" PID encoder"<<;
 
 	//Shooter Wheels -- I'm 95% sure there's a much better way to do this -- when pressed??? but I don't remember how
-	bool buttonY = oi->getDriverJoystick()->GetRawButton(4);
-	bool buttonX = oi->getDriverJoystick()->GetRawButton(3);
-	bool buttonB = oi->getDriverJoystick()->GetRawButton(2);
-	bool buttonA = oi->getDriverJoystick()->GetRawButton(1);
+//	bool buttonY = oi->getDriverJoystick()->GetRawButton(4);
+//	bool buttonX = oi->getDriverJoystick()->GetRawButton(3);
+//	bool buttonB = oi->getDriverJoystick()->GetRawButton(2);
+//	bool buttonA = oi->getDriverJoystick()->GetRawButton(1);
 	float killButton = oi->getDriverJoystick()->GetRawAxis(3);
-
-	if((buttonY != m_lastButtonY) && buttonY) // for raising left motor value by 5%
-	{
-		shooterWheelValL = shooterWheelValL + .05;
-	}
-
-	m_lastButtonY = buttonY;
-
-	if((buttonX != m_lastButtonX) && buttonX) { //for lowering left motor value by 5%
-		shooterWheelValL = shooterWheelValL - .05;
-	}
-
-	m_lastButtonX = buttonX;
-
-	if ((buttonB != m_lastButtonB) && buttonB){
-		shooterWheelValL = shooterWheelValL + .001;
-	}
-
-	m_lastButtonB = buttonB;
-
-	if ((buttonA != m_lastButtonA) && buttonA){
-		shooterWheelValL = shooterWheelValL -.001;
-	}
-
-	m_lastButtonA = buttonA;
-
+//
+//	if((buttonY != m_lastButtonY) && buttonY) // for raising left motor value by 5%
+//	{
+//		shooterWheelValL = shooterWheelValL + .05;
+//	}
+//
+//	m_lastButtonY = buttonY;
+//
+//	if((buttonX != m_lastButtonX) && buttonX) { //for lowering left motor value by 5%
+//		shooterWheelValL = shooterWheelValL - .05;
+//	}
+//
+//	m_lastButtonX = buttonX;
+//
+//	if ((buttonB != m_lastButtonB) && buttonB){
+//		shooterWheelValL = shooterWheelValL + .001;
+//	}
+//
+//	m_lastButtonB = buttonB;
+//
+//	if ((buttonA != m_lastButtonA) && buttonA){
+//		shooterWheelValL = shooterWheelValL -.001;
+//	}
+//
+//	m_lastButtonA = buttonA;
+//
 	if(killButton > .5){
-		shooterWheelValL = 0;
-		shooterWheelValR = 0;
+		Robot::shooterWheelPID.get()->KillWheels();
 	}
+//
+//	shooterWheelValL = shooterWheelValR;
+//	RobotMap::shooterWheelPIDShooter1->Set(shooterWheelValL);
+//	RobotMap::shooterWheelPIDShooter2->Set(shooterWheelValR);
 
-	shooterWheelValL = shooterWheelValR;
 
-	std::cout<<" Shooter Wheel Value "<<shooterWheelValL;
+	std::cout<<" Shooter Wheel Value "<<shooterWheelValL << std::endl;
 
-	float counterPID = RobotMap::shooterWheelPIDSpeedCounter ->Get();
-	std::cout<<"  Shooter Wheel Speed Counter  " << counterPID;
-	std::cout<<"  Shooter Wheel PID 2" << RobotMap::shooterWheelPIDShooter2->Get();	//???????? what is shooterwheelpid2 anyway
-
-	std::cout<<" Shooter Wheel PID " << shooterWheelPID.get()->GetSpeed();
+//	float counterPID = RobotMap::shooterWheelPIDSpeedCounter ->Get();
+//	std::cout<<"  Shooter Wheel Speed Counter  " << counterPID;
+//	std::cout<<"  Shooter Wheel PID 2" << RobotMap::shooterWheelPIDShooter2->Get();	//???????? what is shooterwheelpid2 anyway
+//
+//	std::cout<<" Shooter Wheel PID " << shooterWheelPID.get()->GetSpeed();
 
 	//Turret -- operator
 
 	double turretPosition = oi.get()->getOperatorJoystick()->GetRawAxis(4);
-	shooterTurretPID.get()->SetTurretPosition(turretPosition/2);
+	//shooterTurretPID.get()->SetTurretPosition(turretPosition/2);
+	RobotMap::shooterTurretPIDTurretMotor.get()->Set(turretPosition/2);
 
 	float turretMotor =  RobotMap::shooterTurretPIDTurretMotor->Get();
-	std::cout<<" Turret Motor"<<turretMotor/2;
+//	std::cout<<" Turret Motor"<<turretMotor/2;
 
 //	RobotMap::shooterTurretPIDTurretPosition1; // again. what do these do
 //	RobotMap::shooterTurretPIDTurretPosition2;
 //	RobotMap::shooterTurretPIDTurretPosition3;
 
-	std::cout << " Turret Position " << shooterTurretPID.get() -> GetTurretPosition();
+//	std::cout << " Turret Position " << shooterTurretPID.get() -> GetTurretPosition();
 
 	//Intake Rollers
 
@@ -234,8 +236,9 @@ void Robot::TeleopPeriodic() {
 		RobotMap::intakeSecondIntake->Set(0);
 	}
 
-	std::cout<<" Main Intake Value "<<RobotMap::intakeMainIntake->Get();
-	std::cout<<" Second Motor Intake Value"<<RobotMap::intakeSecondIntake->Get();
+//	std::cout<<" Main Intake Value "<<RobotMap::intakeMainIntake->Get();
+//	std::cout<<" Second Motor Intake Value"<<RobotMap::intakeSecondIntake->Get();
+	std::cout << std::endl;
 
 	//Pnumatic functions
 
