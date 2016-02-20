@@ -57,6 +57,7 @@ public:
 	static std::shared_ptr<AnalogInput> armPIDArmAngle;
 	static std::shared_ptr<Solenoid> intakeBallRelease;
 	static std::shared_ptr<Solenoid> shooterTurretPIDTurretCylinder;
+	static std::shared_ptr<Solenoid> hoodLockingCylinder;
 
 	static std::shared_ptr<AHRS> m_gyro;
 

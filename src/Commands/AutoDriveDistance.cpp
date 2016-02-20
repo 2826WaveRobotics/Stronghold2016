@@ -24,8 +24,8 @@ void AutoDriveDistance::Initialize()
 	}
 
 	Robot::drivePID->ResetEncoders();
-	//Robot::drivePID->SetPIDs(.055, 0, .08); // .035 //comp = .055
-	Robot::drivePID->SetDirection(m_heading); //sets up the PID for moving straight
+	//Robot::drivePID->SetPIDs(.055, 0, .08); // .035 //comp = .055 //
+	//Robot::drivePID->SetDirection(m_heading); //sets up the PID for moving straight THIS IS WHAT MADE IT SPIN IN  CIRCLES!!!!!
 }
 
 void AutoDriveDistance::Execute()
@@ -37,13 +37,12 @@ void AutoDriveDistance::Execute()
 bool AutoDriveDistance::IsFinished()
 {
 	m_distanceTraveled = Robot::drivePID->GetDistanceTraveled();
-	//std::cout << "Distance to Go: " << m_distance << "\tLeft: " << Robot::drivePID->GetLeftDistanceTraveled() <<
-	//		"\tRight: " << Robot::drivePID->GetRightDistanceTraveled() << "\tPower: " << m_power << std::endl;
+	std::cout << "Distance to Go: " << m_distance << "\tTraveled: " << Robot::drivePID->GetDistanceTraveled() << "\tPower: " << m_power << std::endl;
 
-	if(m_power > 0 && m_distanceTraveled > m_distance){
+	if(m_power > 0 && m_distanceTraveled < m_distance){
 		return true;
 	}
-	else if(m_power < 0 && m_distanceTraveled < m_distance){
+	else if(m_power < 0 && m_distanceTraveled > m_distance){
 		return true;
 	}
 

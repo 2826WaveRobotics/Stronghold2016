@@ -39,7 +39,7 @@ void GrappleClimb::InitDefaultCommand() {
 // here. Call these from Commands.
 
 void GrappleClimb::setGrappleState(GrappleState state) {
-	if(state == Grapple_Open){
+	if(state == Grapple_Release){
 	grappleRelease.get()->Set(true);
 	}
 	else{
@@ -48,7 +48,7 @@ void GrappleClimb::setGrappleState(GrappleState state) {
 }
 
 void GrappleClimb::setClimbState(ClimbState state) {
-	if(state == Climb_Open){
+	if(state == Climb_Release){
 		climbRelease.get()->Set(true);
 	}
 	else {

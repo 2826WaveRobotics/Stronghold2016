@@ -17,14 +17,14 @@
 
 enum ClimbState
 {
-	Climb_Open,
-	Climb_Close
+	Climb_Hold,
+	Climb_Release
 };
 
 enum GrappleState
 {
-	Grapple_Open,
-	Grapple_Close
+	Grapple_Hold,
+	Grapple_Release
 };
 
 /**

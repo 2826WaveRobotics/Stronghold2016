@@ -81,7 +81,7 @@ private:
 	bool m_lastButtonB;
 	bool m_lastButtonA;
 
-	SendableChooser* m_defenseSelector;
-	SendableChooser* m_locationSelector;
+	SendableChooser m_defenseSelector;
+	SendableChooser m_locationSelector;
 };
 #endif

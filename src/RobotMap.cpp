@@ -20,38 +20,53 @@ int turretcylinder = 5;
 int shooterballrelease = 4;
 int grapple = 3;
 int climb = 2;
+int lockingCylinder = 6;
+
+//analog Inputs
+int armAngle = 0;
+
+//digital I/O
+int lowBarProx1 = 9;
+int lowBarProx2 = 10;
+int shooterTurretAngle = 1;
+int shooterTurretPos1 = 2;
+int shooterTurretPos2 = 3;
+int shooterTurretPos3 = 13;
+
+//encoders
+
 
 double wheelDiameter = 6.1; //inches
 
 #ifdef PracticeBot
-int CANTalon_drivePIDLeftBack = 1; //coast
-int CANTalon_drivePIDLeftFront = 27; //coast
-int CANTalon_drivePIDRightBack = 14; //coast
-int CANTalon_drivePIDRightFront = 26; //coast
-int CANTalon_primaryIntakeMotor = 7;
-int CANTalon_secondaryIntakeMotor = 25;
-int CANTalon_armMotorLeft = 4;
-int CANTalon_armMotorRight = 9;
-int CANTalon_shooterMotor1 = 16;
-int CANTalon_shooterMotor2 = 17;
-int CANTalon_turretMotor = 5;
+int CANTalon_drivePIDLeftBack = 1; //break
+int CANTalon_drivePIDLeftFront = 27; //break
+int CANTalon_drivePIDRightBack = 14; //break
+int CANTalon_drivePIDRightFront = 26; //break
+int CANTalon_primaryIntakeMotor = 7; //coast
+int CANTalon_secondaryIntakeMotor = 25; //coast
+int CANTalon_armMotorLeft = 4; //break
+int CANTalon_armMotorRight = 9; //break
+int CANTalon_shooterMotor1 = 16; //coast RIGHT
+int CANTalon_shooterMotor2 = 17; //coast
+int CANTalon_turretMotor = 5; //break
 
-double distancePerPulse = (wheelDiameter * 3.14159) / 128;
+double distancePerPulse = ((wheelDiameter * 3.14159) / 128) / 6; // 6:1 gear reduction
 #endif
 
 
 #ifdef CompBot
-int CANTalon_drivePIDLeftBack = 1; //coast
-int CANTalon_drivePIDLeftFront = 27; //coast
-int CANTalon_drivePIDRightBack = 14; //coast
-int CANTalon_drivePIDRightFront = 26; //coast
-int CANTalon_primaryIntakeMotor = 2;
-int CANTalon_secondaryIntakeMotor = 3;
-int CANTalon_armMotorLeft = 4;
-int CANTalon_armMotorRight = 5;
-int CANTalon_shooterMotor1 = 6;
-int CANTalon_shooterMotor2 = 7;
-int CANTalon_turretMotor = 8;
+int CANTalon_drivePIDLeftBack = 1; //break
+int CANTalon_drivePIDLeftFront = 27; //break
+int CANTalon_drivePIDRightBack = 14; //break
+int CANTalon_drivePIDRightFront = 26; //break
+int CANTalon_primaryIntakeMotor = 2; //coast
+int CANTalon_secondaryIntakeMotor = 3; //coast
+int CANTalon_armMotorLeft = 4; //break
+int CANTalon_armMotorRight = 5; //break
+int CANTalon_shooterMotor1 = 6; //coast
+int CANTalon_shooterMotor2 = 7; //coast
+int CANTalon_turretMotor = 8; //break
 
 double distancePerPulse = (wheelDiameter * 3.14159) / 256;
 #endif
@@ -91,6 +106,7 @@ std::shared_ptr<CANTalon> RobotMap::shooterWheelPIDShooter2;
 std::shared_ptr<AnalogInput> RobotMap::armPIDArmAngle;
 std::shared_ptr<Solenoid> RobotMap::intakeBallRelease;
 std::shared_ptr<Solenoid> RobotMap::shooterTurretPIDTurretCylinder;
+std::shared_ptr<Solenoid> RobotMap::hoodLockingCylinder;
 
 std::shared_ptr<AHRS> RobotMap::m_gyro;
 
@@ -101,13 +117,13 @@ void RobotMap::init() {
     armPIDArmMotorRight.reset(new CANTalon(CANTalon_armMotorRight));
     lw->AddActuator("ArmPID", "ArmMotorRight", armPIDArmMotorRight);
     
-    armPIDArmAngle.reset(new AnalogInput(0));
+    armPIDArmAngle.reset(new AnalogInput(armAngle));
     lw->AddActuator("ArmPID", "ArmAngle", armPIDArmAngle);
 
-    armPIDLowBarProx1.reset(new DigitalInput(9));
+    armPIDLowBarProx1.reset(new DigitalInput(lowBarProx1));
     lw->AddSensor("ArmPID", "LowBarProx1", armPIDLowBarProx1);
     
-    armPIDLowBarProx2.reset(new DigitalInput(10));
+    armPIDLowBarProx2.reset(new DigitalInput(lowBarProx2));
     lw->AddSensor("ArmPID", "LowBarProx2", armPIDLowBarProx2);
     
     compressorSubsystemWaveCompressor.reset(new Compressor(0));
@@ -116,11 +132,14 @@ void RobotMap::init() {
     drivePIDDriveEncoderRight.reset(new Encoder(0, 1, false, Encoder::k4X));
     lw->AddSensor("DrivePID", "DriveEncoderRight", drivePIDDriveEncoderRight);
     drivePIDDriveEncoderRight->SetDistancePerPulse(distancePerPulse);
-    drivePIDDriveEncoderRight->SetPIDSourceType(PIDSourceType::kRate);
-    drivePIDDriveEncoderLeft.reset(new Encoder(11, 12, false, Encoder::k4X));
+//    drivePIDDriveEncoderRight->SetPIDSourceType(PIDSourceType::kDisplacement);
+
+    drivePIDDriveEncoderLeft.reset(new Encoder(2, 3, true, Encoder::k4X));
     lw->AddSensor("DrivePID", "DriveEncoderLeft", drivePIDDriveEncoderLeft);
     drivePIDDriveEncoderLeft->SetDistancePerPulse(distancePerPulse);
-    drivePIDDriveEncoderLeft->SetPIDSourceType(PIDSourceType::kRate);
+//    drivePIDDriveEncoderLeft->SetPIDSourceType(PIDSourceType::kDisplacement);
+//    drivePIDDriveEncoderLeft->SetReverseDirection(true);
+
     drivePIDLeftBack.reset(new CANTalon(CANTalon_drivePIDLeftBack));
     lw->AddActuator("DrivePID", "LeftBack", drivePIDLeftBack);
     
@@ -162,16 +181,16 @@ void RobotMap::init() {
     shooterTurretPIDTurretMotor.reset(new CANTalon(CANTalon_turretMotor));
     lw->AddActuator("ShooterTurretPID", "TurretMotor", shooterTurretPIDTurretMotor);
     
-    shooterTurretPIDTurretAngle.reset(new AnalogInput(0));
+    shooterTurretPIDTurretAngle.reset(new AnalogInput(shooterTurretAngle));
     lw->AddSensor("ShooterTurretPID", "TurretAngle", shooterTurretPIDTurretAngle);
     
-    shooterTurretPIDTurretPosition1.reset(new DigitalInput(2));
+    shooterTurretPIDTurretPosition1.reset(new DigitalInput(shooterTurretPos1));
     lw->AddSensor("ShooterTurretPID", "TurretPosition1", shooterTurretPIDTurretPosition1);
     
-    shooterTurretPIDTurretPosition2.reset(new DigitalInput(3));
+    shooterTurretPIDTurretPosition2.reset(new DigitalInput(shooterTurretPos2));
     lw->AddSensor("ShooterTurretPID", "TurretPosition2", shooterTurretPIDTurretPosition2);
     
-    shooterTurretPIDTurretPosition3.reset(new DigitalInput(13));
+    shooterTurretPIDTurretPosition3.reset(new DigitalInput(shooterTurretPos3));
     lw->AddSensor("ShooterTurretPID", "TurretPosition3", shooterTurretPIDTurretPosition3);
     
     shooterWheelPIDShooter1.reset(new CANTalon(CANTalon_shooterMotor1));
@@ -199,6 +218,8 @@ void RobotMap::init() {
     shooterTurretPIDTurretCylinder.reset(new Solenoid(0, turretcylinder));
     lw->AddActuator("ShooterTurretPID", "TurretCylinder", shooterTurretPIDTurretCylinder);
 
+    hoodLockingCylinder.reset(new Solenoid(0, lockingCylinder));
+    lw->AddActuator("Hood", "LockingCylinder", hoodLockingCylinder);
 
 
     m_gyro.reset(new AHRS(SerialPort::kMXP));

@@ -9,14 +9,17 @@
 // it from being updated in the future.
 
 #include "../WaveConstants.h"
-#include "../Subsystems/GrappleClimb.h"
-#include "ClimbSequence.h"
-#include "SetClimbState.h"
+#include "SetHoodPositionSequence.h"
 #include "WaveWait.h"
-#include "SetArmPosition.h"
+#include "SetHoodPosition.h"
+#include "SetHoodLockPin.h"
 
 
-ClimbSequence::ClimbSequence() {
-AddSequential(new SetClimbState(Climb_Release)); //this is just a guess update it later
-AddSequential(new SetArmPosition(c_armTravelPosition));
+
+SetHoodPositionSequence::SetHoodPositionSequence(HoodPosition position) {
+AddSequential(new SetHoodLockPin(false));
+AddSequential(new WaveWait(.5));
+AddSequential(new SetHoodPosition(position));
+AddSequential(new WaveWait(.5));
+AddSequential(new SetHoodLockPin(true));
 }
