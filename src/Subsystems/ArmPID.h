@@ -42,8 +42,17 @@ class ArmPID: public PIDSubsystem {
 
 	float GetArmAngle();
 
+	void ManualArmControl(double output); //will not set output if command is running
+	void SetCommandActive(bool active);
+
 	double convertAngleToVolts(double angle);
 	double convertVoltsToAngle(double volts);
+
+ private:
+
+	bool m_commandIsActive;
+
+	bool AngleCheck(double output); //returns true if movement is allowed
 };
 
 #endif

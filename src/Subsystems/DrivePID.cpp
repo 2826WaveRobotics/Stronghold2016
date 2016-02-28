@@ -109,7 +109,7 @@ void DrivePID::ResetEncoders() {
 double DrivePID::GetDistanceTraveled(){
 	double rightDistance = driveEncoderRight.get()->GetDistance(); // Get() * wheelCircumference * ticksPerWheel;
 	double leftDistance = driveEncoderLeft.get()->GetDistance(); //Get() * wheelCircumference * ticksPerWheel;
-	std::cout << "DrivePID::GetDistanceTraveled(): Left = " << leftDistance << ", Right = " << rightDistance << std::endl;
+	std::cout << " Left Drive = " << leftDistance << ", Right Drive = " << rightDistance << std::endl;
 	return (rightDistance+leftDistance)/2;
 
 

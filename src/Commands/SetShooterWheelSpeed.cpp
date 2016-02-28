@@ -32,7 +32,8 @@ void SetShooterWheelSpeed::Initialize() {
 
 // Called repeatedly when this Command is scheduled to run
 void SetShooterWheelSpeed::Execute() {
-
+	std::cout<<"  Shooter Wheel Speed: "<<Robot::shooterWheelPID.get()->GetSpeed();
+	std::cout<<"  Shooter Wheel PID Input: "<<Robot::shooterWheelPID.get()->ReturnPIDInput();
 }
 
 // Make this return true when this Command no longer needs to run execute()
