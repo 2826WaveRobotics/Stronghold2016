@@ -50,7 +50,7 @@ void Intake::ToggleIntake() {
 }
 
 void Intake::SetIntakeOn() {
-	mainIntake.get()->Set(.5);
+	mainIntake.get()->Set(0.9);
 }
 
 void Intake::SetIntakeOff() {
@@ -62,7 +62,7 @@ void Intake::SetSecondaryOff() {
 }
 
 void Intake::SetSecondaryOn() {
-	secondIntake.get()->Set(.5);
+	secondIntake.get()->Set(-.9);
 }
 
 void Intake::ToggleSecondary() {
@@ -84,5 +84,5 @@ void Intake::SetBallRelease(ReleaseState state) {
 
 bool Intake::IsBallDetected()
 {
-	return ballDetector.get()->Get();
+	return !(ballDetector.get()->Get());
 }

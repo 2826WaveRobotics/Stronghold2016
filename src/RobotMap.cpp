@@ -40,15 +40,15 @@ int shooterTurretPos3 = 13;
 //encoders
 double wheelDiameter = 6.1; //inches
 
-#define PracticeBot
+//PracticeBot and CompBot are defined in RobotMap.h
 
 #ifdef PracticeBot
 int CANTalon_drivePIDLeftBack = 1; //break
 int CANTalon_drivePIDLeftFront = 27; //break
 int CANTalon_drivePIDRightBack = 14; //break
 int CANTalon_drivePIDRightFront = 26; //break
-int CANTalon_primaryIntakeMotor = 7; //coast
-int CANTalon_secondaryIntakeMotor = 25; //coast
+int CANTalon_primaryIntakeMotor = 25; //coast
+int CANTalon_secondaryIntakeMotor = 7; //coast
 int CANTalon_armMotorLeft = 4; //break
 int CANTalon_armMotorRight = 9; //break
 int CANTalon_shooterMotor1 = 16; //coast RIGHT
