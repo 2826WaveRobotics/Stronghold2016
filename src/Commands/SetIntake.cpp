@@ -27,14 +27,15 @@ SetIntake::SetIntake(bool on): Command() {
 void SetIntake::Initialize() {
 	if(m_intake){
 		Robot::intake.get()->SetIntakeOn();
+		Robot::intake.get()->SetSecondaryOn();
 	}
 	else{
 		Robot::intake.get()->SetIntakeOff();
+		Robot::intake.get()->SetSecondaryOff();
 	}
 }
 // Called repeatedly when this Command is scheduled to run
 void SetIntake::Execute() {
-
 }
 
 // Make this return true when this Command no longer needs to run execute()

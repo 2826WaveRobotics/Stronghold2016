@@ -63,7 +63,7 @@ AutoLowBar::AutoLowBar() {
 //
 //	AddSequential(new SetTurretPosition(1, true));
 //	AddParallel(new SetHoodPosition(Hood_Medium));
-	AddSequential(new FireSequence ());
+	//AddSequential(new FireSequence ());
 //
 //	//Backing over the Defense
 //	AddSequential(new AutoDriveDistance(-c_courtyard1, -.5, 0));

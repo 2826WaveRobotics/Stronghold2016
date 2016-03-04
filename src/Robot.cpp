@@ -92,6 +92,7 @@ void Robot::DisabledPeriodic() {
 //		std::cout<<"  Shooter Wheel PID Input: "<<Robot::shooterWheelPID.get()->ReturnPIDInput();
 		<< "\tYaw = " << drivePID.get()->GetYaw()
 		<< "\tBall Detect = " << intake.get()->IsBallDetected();
+	std::cout<<" Kiran's Arm Angle  " << armPID.get()->GetArmAngle();
 }
 
 void Robot::AutonomousInit() {
@@ -152,32 +153,25 @@ void Robot::TeleopPeriodic() {
 
 	Scheduler::GetInstance()->Run();
 
+	std::cout<<" Low Bar Prox 1 : " << Robot::armPID.get()->lowBarProx1->Get() << " Low Bar Prox 2  : " << Robot::armPID.get()->lowBarProx2->Get();
+
 	//Drive
 
 	float leftDrive = oi.get()->getDriverJoystick()->GetRawAxis(1);
 	float rightDrive = oi.get()->getDriverJoystick()->GetRawAxis(5);
 	drivePID.get()->robotDrive41.get()->TankDrive(leftDrive, rightDrive);
 
+	//double intakeButton = oi.get()->getDriverJoystick()->GetRawAxis(3);
+
+
 //	/*std::cout << "Distance = " << */drivePID.get()->GetDistanceTraveled()/* << std::endl*/;
 
-//	std::cout<<"Robot Left Drive "<<leftDrive;
-//	std::cout<<" Robot Right Drive "<<rightDrive;
-//
-//	std::cout<< " Right Encoder " << RobotMap::drivePIDDriveEncoderRight->Get();
-//	std::cout<< " Left Encoder  " << RobotMap::drivePIDDriveEncoderLeft->Get();
-//
-//	std::cout<< " PID output  " << drivePID.get()->GetPIDOutput();
-//	std::cout<< " Yaw  " << drivePID.get()->GetYaw();
-//	std::cout<< " Pitch " << drivePID.get()->GetPitch();
-//	std::cout<< " Roll " << drivePID.get()->GetRoll();
 
 	//Arm
 
 	//bool rightButton = oi->getDriverJoystick()->GetRawButton(6);
 	float armMotorPower = oi.get()->getOperatorJoystick()->GetRawAxis(1);
 	armPID.get()->ManualArmControl(armMotorPower);
-	//RobotMap::armPIDArmMotorRight->Set(armMotorPower/2);
-	//RobotMap::armPIDArmMotorLeft->Set(-(armMotorPower/2));
 
 //	std::cout<<" Arm Position " << RobotMap::armPIDArmPosition->Get();
 	//std::cout<<" Low Bar Prox 1 " << RobotMap::armPIDLowBarProx1->Get();
@@ -185,29 +179,19 @@ void Robot::TeleopPeriodic() {
 
 	//std::cout<<" Arm Motor Value "<< armMotorPower/2;
 //
-	std::cout<<" Arm Angle  " << armPID.get()->GetArmAngle()<<" /tSetpoint: " << armPID.get()->GetSetpoint()<< " /tPosition: " << armPID.get()->GetPosition();
+	//std::cout<<" Arm Angle  " << armPID.get()->GetArmAngle()<<" /tSetpoint: " << armPID.get()->GetSetpoint()<< " /tPosition: " << armPID.get()->GetPosition();
 
-	//std::cout<<" PID encoder"<<;
+
 
 	float killButton = oi->getDriverJoystick()->GetRawAxis(3);
 	if(killButton > .5){
 		Robot::shooterWheelPID.get()->KillWheels();
 	}
-//
-//	shooterWheelValL = shooterWheelValR;
-//	RobotMap::shooterWheelPIDShooter1->Set(shooterWheelValL);
-//	RobotMap::shooterWheelPIDShooter2->Set(shooterWheelValR);
-
-	std::cout<<", \tShooter Wheel Speed" << Robot::shooterWheelPID.get()->ReturnPIDInput() << ", \tShooter Wheel " << RobotMap::shooterWheelPIDSpeedCounter.get()->Get();
 
 
-	//std::cout<<" Shooter Wheel Value "<< ButtonWheelSpeed << std::endl;
+	std::cout<<", \tShooter Wheel Speed" << Robot::shooterWheelPID.get()->ReturnPIDInput();
 
-//	float counterPID = RobotMap::shooterWheelPIDSpeedCounter ->Get();
-//	std::cout<<"  Shooter Wheel Speed Counter  " << counterPID;
-//	std::cout<<"  Shooter Wheel PID 2" << RobotMap::shooterWheelPIDShooter2->Get();	//???????? what is shooterwheelpid2 anyway
-//
-//	std::cout<<" Shooter Wheel PID " << shooterWheelPID.get()->GetSpeed();
+			//<< ", \tShooter Wheel " << RobotMap::shooterWheelPIDSpeedCounter.get()->Get();
 
 	//Turret -- operator
 
@@ -215,43 +199,17 @@ void Robot::TeleopPeriodic() {
 	//shooterTurretPID.get()->SetTurretPosition(turretPosition/2);
 	RobotMap::shooterTurretPIDTurretMotor.get()->Set(turretPosition/2);
 
-//	float turretMotor =  RobotMap::shooterTurretPIDTurretMotor->Get();
-//	std::cout<<" Turret Motor"<<turretMotor/2;
-
-//	RobotMap::shooterTurretPIDTurretPosition1; // again. what do these do
-//	RobotMap::shooterTurretPIDTurretPosition2;
-//	RobotMap::shooterTurretPIDTurretPosition3;
-
 //	std::cout << " Turret Position " << shooterTurretPID.get() -> GetTurretPosition();
 
 	//Intake Rollers
 
-////	bool mainIntakeVal = oi.get()->getOperatorJoystick()->GetRawButton(7);
-////	bool secondIntakeVal = oi.get()->getOperatorJoystick()->GetRawButton(8);
 
-//	if (oi.get()->getOperatorJoystick()->GetRawButton(7) == true){
-//		RobotMap::intakeMainIntake->Set(0.9);
-//	}
-//	else{
-//		RobotMap::intakeMainIntake->Set(0);
-//	}
-//
-//	if (oi.get()->getOperatorJoystick()->GetRawButton(8) == true){
-//		RobotMap::intakeSecondIntake->Set(-.9);
-//	}
-//	else{
-//		RobotMap::intakeSecondIntake->Set(0);
-//	}
-
-//	std::cout<<" Main Intake Value "<<RobotMap::intakeMainIntake->Get();
-//	std::cout<<" Second Motor Intake Value"<<RobotMap::intakeSecondIntake->Get();
 	std::cout << std::endl;
 
 	//Pnumatic functions
 
 
-	// RobotMap::hoodShortCylinder; //??
-	 //RobotMap::hoodLongCylinder;//what does this do
+
 
 }
 

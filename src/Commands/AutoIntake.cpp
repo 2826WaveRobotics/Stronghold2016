@@ -11,13 +11,14 @@
 
 #include "AutoIntake.h"
 #include <iostream>
+#include "../WaveConstants.h"
+#include "SetArmPosition.h"
 
 
 AutoIntake::AutoIntake(): Command() {
 	// Use requires() here to declare subsystem dependencies
 	// eg. requires(chassis);
 	Requires(Robot::intake.get());
-
 
 }
 
@@ -26,7 +27,9 @@ AutoIntake::AutoIntake(): Command() {
 // Called just before this Command runs the first time
 void AutoIntake::Initialize() {
 	Robot::intake.get()->SetIntakeOn();
-	Robot::intake.get()->SetSecondaryOn();
+	Robot::intake.get()->SetSecondaryOn(); // the reason setArmPID does not work is because we are not using the PID. need the command!!
+//	Robot::armPID.get()->SetArmAngle(0);
+//	Robot::shooterTurretPID.get()->SetTurretPosition(c_shootAngle3);
 }
 // Called repeatedly when this Command is scheduled to run
 void AutoIntake::Execute() {

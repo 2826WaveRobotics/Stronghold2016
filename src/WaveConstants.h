@@ -26,8 +26,8 @@
  // available intake arm positions
  const double c_armIntakePosition = 10;
  const double c_armLowPosition = 0;
- const double c_armTravelPosition = 60;
- const double c_armHighPosition = 90;
+ const double c_armTravelPosition = 30;
+ const double c_armHighPosition = 60;
 
 
 const double wheelCircumference = 3.14159 * 6; // 6 = wheel diameter
