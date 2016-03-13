@@ -20,7 +20,7 @@ private:
 	std::shared_ptr<Joystick> operatorJoystick;
 	std::shared_ptr<Joystick> operatorRightTrigger;
 	std::shared_ptr<Joystick> operatorLeftTrigger;
-	std::shared_ptr<JoystickButton> operatorStart;
+	//std::shared_ptr<JoystickButton> operatorStart;
 	std::shared_ptr<JoystickButton> operatorSelect;
 	std::shared_ptr<JoystickButton> operatorRightBumper;
 	std::shared_ptr<JoystickButton> operatorLeftBumper;

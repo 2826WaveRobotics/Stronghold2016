@@ -17,17 +17,12 @@
 #include "BallRelease.h"
 #include "../Subsystems/ShooterWheelPID.h"
 #include "SetTurretPosition.h"
-//#include "../WaitForChildren.h"
+#include "wpilib.h"
 
 
-FireSequence::FireSequence(HoodPosition position, TurretState state, WheelSpeed speed) {
-AddSequential(new SetHoodPositionSequence(position));
-AddParallel(new SetTurretCylinder(state));
-AddSequential(new SetShooterWheelSpeed(speed));
+FireSequence::FireSequence() {
 AddSequential(new ShooterIntake(true));
-AddSequential(new BallRelease(Released));
-AddSequential(new WaveWait(.5));
-AddSequential(new BallRelease(Blocked));
+AddSequential(new WaveWait(2.0));
 AddSequential(new ShooterIntake(false));
 
 }

@@ -13,14 +13,15 @@
 #include "WaveWait.h"
 #include "SetArmPosition.h"
 #include "SetIntake.h"
-#include "SetTurretPosition.h"
+#include "SetTurretCylinder.h"
 #include "AutoIntake.h"
+#include "BallRelease.h"
 
 
-IntakePositionSequence::IntakePositionSequence() {
+IntakePositionSequence::IntakePositionSequence(TurretState state, ReleaseState ball) {
 	AddSequential(new SetArmPosition(c_armIntakePosition));
 	AddParallel(new AutoIntake());
-	AddParallel(new SetTurretPosition(c_shootAngle3, true));
+	AddParallel(new SetTurretCylinder(state));
+	AddSequential(new BallRelease(ball));
 	//trigger stuff for low bar. sensors are not on robot. cannot yet happen.
-
 }

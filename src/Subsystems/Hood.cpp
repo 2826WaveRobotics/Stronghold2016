@@ -47,12 +47,12 @@ void Hood::setHoodPosition(HoodPosition newPosition){
 	bool longCylinderState;
 
 	switch(newPosition){
-		case Hood_Stow:
+		case Hood_Stow: //default, all the way down
 		default:
 			shortCylinderState = false;
 			longCylinderState = true;
 			break;
-		case Hood_Low:
+		case Hood_Low:// pretty sure this is the one we NEVER want
 			shortCylinderState = true;
 			longCylinderState = true;
 			break;

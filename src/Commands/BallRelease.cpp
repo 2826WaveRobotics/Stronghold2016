@@ -24,11 +24,16 @@ BallRelease::BallRelease(ReleaseState state): Command() {
 
 // Called just before this Command runs the first time
 void BallRelease::Initialize() {
+//	bool ballDetected = Robot::intake.get()->IsBallDetected();
+
+	//if (ballDetected == true){
+
 	if(m_ReleaseRequest){
 		Robot::intake.get()->SetBallRelease(Released);
 	}
 	else{
 		Robot::intake.get()->SetBallRelease(Blocked);
+	//}
 	}
 }
 // Called repeatedly when this Command is scheduled to run

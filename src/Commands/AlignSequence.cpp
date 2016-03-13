@@ -14,10 +14,15 @@
 #include "SetArmPosition.h"
 #include "SetIntake.h"
 #include "SetTurretPosition.h"
+#include "SetTurretCylinder.h"
+#include "BallRelease.h"
+#include "SetHoodPosition.h"
 
 
-AlignSequence::AlignSequence() {
-	AddSequential(new SetArmPosition(c_armHighPosition));
+AlignSequence::AlignSequence(TurretState state) {
+	AddSequential(new SetArmPosition(5));
+	AddSequential(new SetHoodPosition(Hood_Medium));
+	AddSequential(new SetTurretCylinder(state));
 	//trigger stuff for low bar. sensors are not on robot. cannot yet happen.
 
 }

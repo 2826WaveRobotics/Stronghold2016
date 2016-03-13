@@ -43,7 +43,7 @@ AutoRockWall::AutoRockWall() {
 
 	AddSequential(new AutoDriveDistance(74, .5, 0));
 	AddSequential(new DefenseCrossed(0.5));
-	AddParallel(new AutoDrivePower(.5, 0));
+	AddParallel(new AutoDrivePower(.5, 0,  false, false));
 
 	//Defense Is Crossed
 
@@ -55,7 +55,7 @@ AutoRockWall::AutoRockWall() {
 	//Backing over the Defense
 	AddSequential(new AutoDriveDistance(-1, -.5, 0, true));
 	AddSequential(new DefenseCrossed (.5));
-	AddParallel(new AutoDrivePower (-.5,0));
-	AddSequential(new AutoDrivePower (0,0));
+	AddParallel(new AutoDrivePower (-.5,0,  false, false));
+	AddSequential(new AutoDrivePower (0,0,  false, false));
 
 }

@@ -25,7 +25,7 @@ void AutoDriveDistance::Initialize()
 
 	Robot::drivePID->ResetEncoders();
 	//Robot::drivePID->SetPIDs(.055, 0, .08); // .035 //comp = .055 //
-	Robot::drivePID->SetDirection(m_heading); //sets up the PID for moving straight THIS IS WHAT MADE IT SPIN IN  CIRCLES!!!!!
+	//Robot::drivePID->SetDirection(m_heading); //sets up the PID for moving straight THIS IS WHAT MADE IT SPIN IN  CIRCLES!!!!!
 }
 
 void AutoDriveDistance::Execute()

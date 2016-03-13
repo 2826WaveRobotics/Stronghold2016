@@ -24,7 +24,9 @@
 enum WheelSpeed
 {
 	Long_Shot,
-	Short_Shot
+	Short_Shot,
+	Idle_Shot,
+	Kill_Shot
 };
 
 class ShooterWheelPID: public PIDSubsystem {

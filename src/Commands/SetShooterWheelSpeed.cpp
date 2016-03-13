@@ -27,20 +27,13 @@ SetShooterWheelSpeed::SetShooterWheelSpeed(WheelSpeed speed): Command() {
 
 // Called just before this Command runs the first time
 void SetShooterWheelSpeed::Initialize() {
-	switch (m_newSpeed) {
-	    case Long_Shot:
-	    	Robot::shooterWheelPID.get()->SetSequenceSpeed(m_newSpeed);
-	    	break;
-	    case Short_Shot:
-	    	Robot::shooterWheelPID.get()->SetSequenceSpeed(m_newSpeed);
-	    	break;
-	    }
+	Robot::shooterWheelPID.get()->SetSequenceSpeed(m_newSpeed);
 }
 
 // Called repeatedly when this Command is scheduled to run
 void SetShooterWheelSpeed::Execute() {
-	std::cout<<"  Shooter Wheel Speed: "<<Robot::shooterWheelPID.get()->GetSpeed();
-	std::cout<<"  Shooter Wheel PID Input: "<<Robot::shooterWheelPID.get()->ReturnPIDInput();
+//	std::cout<<"  Shooter Wheel Speed: "<<Robot::shooterWheelPID.get()->GetSpeed();
+//	std::cout<<"  Shooter Wheel PID Input: "<<Robot::shooterWheelPID.get()->ReturnPIDInput();
 }
 
 // Make this return true when this Command no longer needs to run execute()

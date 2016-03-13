@@ -17,6 +17,7 @@
 
 
 SetHoodPositionSequence::SetHoodPositionSequence(HoodPosition position) {
+//Do Not Use! - Use SetHoodPosition instead
 AddSequential(new SetHoodLockPin(false));
 AddSequential(new WaveWait(.5));
 AddSequential(new SetHoodPosition(position));

@@ -21,7 +21,7 @@ private:
 	double m_power;
 	float m_heading;
 	double m_distanceTraveled;
-	double m_maxPower;
+	//double m_maxPower;
 	bool m_useGlobalDistance;
 };
 

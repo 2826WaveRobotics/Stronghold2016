@@ -32,8 +32,8 @@ void StartingLocation::Initialize() {
 	AutonomousConstants autoConst;
 	autoConst.SetLocation(m_Location);
 
-//	double shootAngle;
-//	double distanceToTravel;
+	//double shootAngle;
+	//double distanceToTravel;
 //	switch(g_startingLocation)
 //	{
 //		case 1:

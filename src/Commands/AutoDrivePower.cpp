@@ -2,11 +2,13 @@
 #include "../Robot.h"
 #include <iostream>
 
-AutoDrivePower::AutoDrivePower(double power, float heading){
+AutoDrivePower::AutoDrivePower(double power, float heading, bool lookForDefenseCrossed, bool lookForLowBar){
 	Requires(Robot::drivePID.get());
 	std::cout << "AutoDrivePower construct - start" << std::endl;
 	m_power = power;
 	m_heading = heading;
+	m_lookForDefenseCrossed = lookForDefenseCrossed;
+	m_lookForLowBar = lookForLowBar;
 	std::cout << "   AutoDrivePower construct - end" << std::endl;
 }
 
@@ -25,12 +27,27 @@ void AutoDrivePower::Execute()
 
 bool AutoDrivePower::IsFinished()
 {
-	if(m_power == 0){
+	bool defenseCrossed = true;
+
+	if(m_lookForDefenseCrossed)
+	{
+		defenseCrossed = Robot::drivePID.get()->GetDefenseCrossed();
+	}
+
+	if((m_power == 0) || (defenseCrossed && m_lookForDefenseCrossed)){
+		std::cout<<"AutoDrivePower is finished!!!!"<<std::endl;
 		return true;
 	}
-	else{
+
+	else if(Robot::armPID.get()->AreLowBarSensorsTripped() && m_lookForLowBar){
+		return true;
+	}
+	else {
 		return false; // return false will allow the robot to drive at the given power until a new AutoDrivePower is called.
 	}
+
+
+
 }
 
 void AutoDrivePower::End()

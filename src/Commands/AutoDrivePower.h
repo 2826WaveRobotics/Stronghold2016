@@ -9,7 +9,7 @@
 class AutoDrivePower: public Command
 {
 public:
-	AutoDrivePower(double power, float heading);
+	AutoDrivePower(double power, float heading, bool lookForDefenseCrossed, bool lookForLowBar);
 	void Initialize();
 	void Execute();
 	bool IsFinished();
@@ -19,6 +19,9 @@ public:
 private:
 	double m_power;
 	float m_heading;
+	bool m_lookForDefenseCrossed;
+	bool m_lookForLowBar;
+
 };
 
 #endif

@@ -50,6 +50,7 @@ private:
 	float ZeroPitch;
 	float ZeroRoll;
 
+	bool m_periodPassed;
 
 
 };

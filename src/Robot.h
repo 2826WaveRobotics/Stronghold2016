@@ -17,17 +17,6 @@
 #include "RobotMap.h"
 #include "LiveWindow/LiveWindow.h"
 
-#include "Commands/AutoDrawbridge.h"
-#include "Commands/AutoChevalDeFrise.h"
-#include "Commands/AutoLowBar.h"
-#include "Commands/AutoMoat.h"
-#include "Commands/AutoPortcullis.h"
-#include "Commands/AutoRamparts.h"
-#include "Commands/AutoRockWall.h"
-#include "Commands/AutoRoughTerrain.h"
-#include "Commands/AutoSallyPort.h"
-#include "Commands/AutonomousCommand.h"
-#include "Commands/StartingLocation.h"
 
 
 
@@ -71,6 +60,7 @@ public:
 	virtual void TeleopPeriodic();
 	virtual void TestPeriodic();
 
+
 private:
 
 	float shooterWheelValR;
@@ -83,5 +73,12 @@ private:
 
 	SendableChooser *m_defenseSelector;
 	SendableChooser *m_locationSelector;
+
+	std::unique_ptr<Command> m_armAngleIntakeCommand;
+	bool m_armAngleIntakeReset;
+	std::unique_ptr<Command> m_triggerHoodStow;
+	std::unique_ptr<Command> m_triggerHoodMedium;
+	std::unique_ptr<Command> m_triggerHoodHigh;
+	bool m_triggerHoodReset;
 };
 #endif

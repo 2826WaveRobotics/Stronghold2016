@@ -46,7 +46,7 @@ AutoChevalDeFrise::AutoChevalDeFrise() {
 	AddSequential(new AutoDriveDistance(74, .5, 0));
 	AddSequential(new SetArmPosition(c_armLowPosition));
 	AddSequential(new DefenseCrossed(0.5));
-	AddParallel(new AutoDrivePower(.5, 0));
+	AddParallel(new AutoDrivePower(.5, 0,  false, false));
 
 	//Defense Is Crossed
 
@@ -61,7 +61,7 @@ AutoChevalDeFrise::AutoChevalDeFrise() {
 	AddSequential(new AutoDriveDistance(1, .5, 180, true));
 	AddSequential(new SetArmPosition(c_armLowPosition));
 	AddSequential(new DefenseCrossed (.5));
-	AddParallel(new AutoDrivePower (.5,180));
-	AddSequential(new AutoDrivePower (0,180));
+	AddParallel(new AutoDrivePower (.5,180,  false, false));
+	AddSequential(new AutoDrivePower (0,180,  false, false));
 
 }

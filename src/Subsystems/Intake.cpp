@@ -57,6 +57,10 @@ void Intake::SetIntakeOff() {
 	mainIntake.get()->Set(0);
 }
 
+void Intake::SetIntakeOut(){
+	mainIntake.get()->Set(-0.9);
+}
+
 void Intake::SetSecondaryOff() {
 	secondIntake.get()->Set(0);
 }

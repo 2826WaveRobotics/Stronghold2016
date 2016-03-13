@@ -25,8 +25,8 @@
 
  // available intake arm positions
  const double c_armIntakePosition = 10;
- const double c_armLowPosition = 0;
- const double c_armTravelPosition = 30;
+ const double c_armLowPosition = 5;
+ const double c_armTravelPosition = 20;
  const double c_armHighPosition = 60;
 
 
