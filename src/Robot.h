@@ -63,6 +63,10 @@ public:
 
 private:
 
+	Timer colorRunTimer;
+
+	ArmLight color;
+
 	float shooterWheelValR;
 	float shooterWheelValL;
 

@@ -103,13 +103,16 @@ void Robot::DisabledInit(){
 void Robot::DisabledPeriodic() {
 	Scheduler::GetInstance()->Run();
 
+
 //	std::cout << "Distance = " << drivePID.get()->GetDistanceTraveled() // << ", \tLow Bar Prox R " << RobotMap::armPIDLowBarProx1.get()->Get()
 //			<<", \tLow Bar Prox L " << RobotMap::armPIDLowBarProx2.get()->Get() << ", \tBall Detect "<< RobotMap::intakeBallDetector.get()->Get()
 //			<<", \tShooter Wheel " << RobotMap::shooterWheelPIDSpeedCounter.get()->Get() << ", Speed " << 60/RobotMap::shooterWheelPIDSpeedCounter.get()->GetPeriod();
 //		std::cout<<"  Shooter Wheel PID Input: "<<Robot::shooterWheelPID.get()->ReturnPIDInput();
 //		<< "\tYaw = " << drivePID.get()->GetYaw() << "\tPitch = " << drivePID.get()->GetPitch()
 //		<< "\tBall Detect = " << intake.get()->IsBallDetected();
-//	std::cout<<" Kiran's Arm Angle  " << armPID.get()->GetArmAngle();
+//std::cout<<" Arm Angle  " << armPID.get()->GetArmAngle();
+
+	std::cout << "Is Ball Detected? " << intake.get()->IsBallDetected() << std::endl;
 }
 
 void Robot::AutonomousInit() {
@@ -139,10 +142,32 @@ void Robot::AutonomousInit() {
 		std::cout << "  autonomousCommand is NULL" << std::endl;
 	}
 
+	colorRunTimer.Start();
+	color = Light_Green;
+
 }
 
 void Robot::AutonomousPeriodic() {
 	Scheduler::GetInstance()->Run();
+
+	std::cout<<" Pitch = " << drivePID.get()->GetPitch()<<std::endl;
+
+	if(colorRunTimer.HasPeriodPassed(.25)){
+		if(color == Light_Red){
+			color = Light_Green;
+		}
+		else if(color == Light_Green){
+			color = Light_Blue;
+		}
+		else if(color == Light_Blue){
+			color = Light_Red;
+		}
+
+		colorRunTimer.Reset();
+	}
+
+
+
 }
 
 void Robot::TeleopInit() {
@@ -163,6 +188,8 @@ void Robot::TeleopInit() {
 	m_triggerHoodHigh.reset(new SetHoodPosition(Hood_High));
 	m_triggerHoodReset = true;
 
+	//shooterWheelPID.get()->SetSequenceSpeed(Idle_Shot);
+
 	std::cout << "Teleop Init" << std::endl;
 
 }
@@ -172,12 +199,25 @@ void Robot::TeleopPeriodic() {
 
 	Scheduler::GetInstance()->Run();
 
+	//MOTOR STUFF
+
+	//drivePID.get()->leftBack->GetOutputCurrent();
+//
+//	std::cout<< "Drive Left Front " << drivePID.get()->leftFront->GetOutputCurrent()
+//			<< "\tDrive Left Back " << drivePID.get()->leftBack->GetOutputCurrent()
+//			<< " \tDrive Right Front " << drivePID.get()->rightFront->GetOutputCurrent()
+//			<< "\tDrive Right Back " << drivePID.get()->rightBack->GetOutputCurrent();
+
 	//std::cout<<" Low Bar Prox 1 : " << Robot::armPID.get()->lowBarProx1->Get() << " Low Bar Prox 2  : " << Robot::armPID.get()->lowBarProx2->Get();
 
 	float rightTrigger = oi.get()->getDriverJoystick()->GetRawAxis(3);
 	float leftTrigger = oi.get()->getDriverJoystick()->GetRawAxis(2);
+	bool ballDetected = intake.get()->IsBallDetected();
+	bool aButton = oi.get()->getOperatorJoystick()->GetRawButton(1);
+	bool xButton = oi.get()->getOperatorJoystick()->GetRawButton(3);
 
 	//CHeck to see if the command needs to be started
+
 	if((rightTrigger > 0.5) && (leftTrigger < 0.15))
 	{
 		if(m_armAngleIntakeReset)
@@ -192,47 +232,121 @@ void Robot::TeleopPeriodic() {
 		m_armAngleIntakeReset = true;
 	}
 
-	//Run intake
-	if((rightTrigger > .15) && (leftTrigger < 0.15))
-	{
-		//Only turn the intake on while no ball is in the collector
-		if(intake.get()->IsBallDetected())
-		{
-			intake.get()->SetIntakeOff();
-			intake.get()->SetSecondaryOff();
-		}
-		else
-		{
-			//Run the intake and shintake until the ball sensors trip
-			intake.get()->SetIntakeOn();
+
+
+	if((rightTrigger > .15) && ballDetected){
+		intake.get()->SetSecondaryOn();
+	}
+	else {
+		if (aButton){ //a pressed
 			intake.get()->SetSecondaryOn();
 		}
-		shooterTurretPID.get()->SetTurretCylinder(Turret_Straight);
+		else if (xButton){ //x pressed
+			intake.get()->SetSecondaryOut();
+
+		}
+		else {
+			intake.get()->SetSecondaryOff();
+		}
 	}
-	else if ((leftTrigger > .5) && (rightTrigger < 0.15)){
+
+	if((rightTrigger > .15)){
+		intake.get()->SetIntakeOn();
+	}
+	else if(leftTrigger > .15){
 		intake.get()->SetIntakeOut();
-	}
+		}
 	else {
 		intake.get()->SetIntakeOff();
 	}
 
 
 
-	//Drive
 
+
+//
+//	//Run intake
+//	if((rightTrigger > .15) && (leftTrigger < 0.15))
+//	{
+//		//Only turn the intake on while no ball is in the collector
+//		if(intake.get()->IsBallDetected())
+//		{
+//			intake.get()->SetIntakeOff();
+//			intake.get()->SetSecondaryOff();
+//			std::cout << "-------------------Intake Off - Ball Detected------------------" << std::endl;
+//		}
+//		else
+//		{
+//			//Run the intake and shintake until the ball sensors trip
+//			intake.get()->SetIntakeOn();
+//			intake.get()->SetSecondaryOn();
+//		}
+//		shooterTurretPID.get()->SetTurretCylinder(Turret_Straight);
+//	}
+//	else if ((leftTrigger > .5) && (rightTrigger < 0.15)){
+//		intake.get()->SetIntakeOut();
+//	}
+//	else if((rightTrigger < .15) &&  (oi.get()->getOperatorJoystick()->GetRawButton(1))){
+//			intake.get()->SetSecondaryOn();
+//		}
+//	else if(rightTrigger< .15 && !intake.get()->IsBallDetected()){
+//		intake.get()->SetSecondaryOff();
+//	}
+//	else {
+//		intake.get()->SetIntakeOff();
+//	}
+
+
+	//light colors
+	bool lowBarProx1 = !RobotMap::armPIDLowBarProx1->Get();
+	bool lowBarProx2 = !RobotMap::armPIDLowBarProx2->Get();
+
+	if(lowBarProx1 && lowBarProx2) {
+		armPID.get()->SetArmLights(Light_Green);
+	}
+	else if(lowBarProx1){
+		armPID.get()->SetArmLightRight(Light_Red);
+		armPID.get()->SetArmLightLeft(Light_Off);
+	}
+	else if(lowBarProx2){
+		armPID.get()->SetArmLightLeft(Light_Blue);
+		armPID.get()->SetArmLightRight(Light_Off);
+	}
+	else {
+		armPID.get()->SetArmLights(Light_Off);
+	}
+
+	//Drive
+//
 //	float leftDrive = oi.get()->getDriverJoystick()->GetRawAxis(1);
 //	float rightDrive = oi.get()->getDriverJoystick()->GetRawAxis(5); //tank drive, currently disabled for arcade drive
 //	drivePID.get()->robotDrive41.get()->TankDrive(leftDrive, rightDrive);
+//
+//	std::cout << "\tLeft Drive " << leftDrive << "\tRight Drive " << rightDrive;
 
 	//double intakeButton = oi.get()->getDriverJoystick()->GetRawAxis(3);
 
 
 //	/*std::cout << "Distance = " << */drivePID.get()->GetDistanceTraveled()/* << std::endl*/;
-
+//
 	float arcadeDrive = oi.get()->getDriverJoystick()->GetRawAxis(1);
 	float arcadeTurn = oi.get()->getDriverJoystick()->GetRawAxis(4);
-	drivePID.get()->robotDrive41.get()->ArcadeDrive(arcadeDrive, arcadeTurn);
+	drivePID.get()->robotDrive41.get()->ArcadeDrive(-arcadeDrive, arcadeTurn);
+//
+//	std::cout << "\tArcade Drive : " << arcadeDrive << "\tArcadeTurn : " << arcadeTurn;
+//
 
+	//GRAPPLECLIMB
+
+	bool buttonY = oi.get()->getOperatorJoystick()->GetRawButton(4); // climb deploy bc i haven't written a command yet
+//	bool buttonB = oi.get()->getOperatorJoystick()->GetRawButton(2);
+
+	if(buttonY){
+		grappleClimb.get()->SetClimbState(Climb_Deploy);
+	}
+	else {
+		grappleClimb.get()->SetClimbState(Climb_Release);
+	}
 
 	//Arm
 
@@ -249,7 +363,7 @@ void Robot::TeleopPeriodic() {
 		if(m_triggerHoodReset)
 		{
 			m_triggerHoodMedium->Start();
-			shooterWheelPID.get()->SetSequenceSpeed(Long_Shot);
+			shooterWheelPID.get()->SetSequenceSpeed(Long_Shot_Angle);
 			m_triggerHoodReset = false;
 		}
 		shooterTurretPID.get()->SetTurretCylinder(Turret_Angled);
@@ -278,8 +392,7 @@ void Robot::TeleopPeriodic() {
 
 
 
-
-//	std::cout<<", \tShooter Wheel Speed" << Robot::shooterWheelPID.get()->ReturnPIDInput();
+//std::cout<<", \tShooter Wheel Speed" << Robot::shooterWheelPID.get()->ReturnPIDInput()<<std::endl;
 
 			//<< ", \tShooter Wheel " << RobotMap::shooterWheelPIDSpeedCounter.get()->Get();
 
@@ -289,7 +402,7 @@ void Robot::TeleopPeriodic() {
 //	//shooterTurretPID.get()->SetTurretPosition(turretPosition/2);
 //	RobotMap::shooterTurretPIDTurretMotor.get()->Set(turretPosition/2);
 
-	//std::cout << std::endl;
+	std::cout << std::endl;
 
 
 	Wait(.005);

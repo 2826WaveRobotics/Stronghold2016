@@ -23,7 +23,8 @@
 
 enum WheelSpeed
 {
-	Long_Shot,
+	Long_Shot_Angle,
+	Long_Shot_Straight,
 	Short_Shot,
 	Idle_Shot,
 	Kill_Shot

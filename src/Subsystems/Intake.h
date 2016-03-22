@@ -47,6 +47,7 @@ public:
 	void SetSecondaryOff();
 	void SetSecondaryOn();
 	void SetIntakeOut();
+	void SetSecondaryOut();
 	void ToggleSecondary();
 	void SetBallRelease(ReleaseState ball);
 	bool IsBallDetected();

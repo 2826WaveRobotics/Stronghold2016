@@ -122,7 +122,7 @@ void DrivePID::DriveStraight(double power) {
 	//std::cout << "Drive: Moving straight with power: " << power << std::endl;
 	double correction = Robot::drivePID->GetPIDOutput();
 	SetSidePower(power - correction, power + correction);
-	double degreesOff = GetSetpoint() - GetYaw();
+	//double degreesOff = GetSetpoint() - GetYaw();
 //	std::cout << "Correction: " << correction << "\tLeft: " <<
 //				(power - correction) << "\tRight: " << (power + correction) << "\tYaw: "
 //			<< GetYaw() << "\tSetpoint: " << GetSetpoint() <<  "\tOff By: " << degreesOff << std::endl;

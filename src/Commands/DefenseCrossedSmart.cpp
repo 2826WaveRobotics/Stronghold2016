@@ -74,6 +74,11 @@ bool DefenseCrossedSmart::IsFinished() {
 				stepCounter = PitchStepFlat;
 			}
 			break;
+		case PitchStepIncreaseCDF: // i am 95% sure this is v BAD
+			if(CurrentPitch < -5){
+				std::cout << " ------------------- Pitch Step Increase CDF Finished --------------------- " << std::endl;
+				return true;
+			}
 	}
 
 	bool IsRollFlat = (m_checkRoll? (fabs (CurrentRoll) < 1.0) : true); //if we don't care about roll, assume roll is flat

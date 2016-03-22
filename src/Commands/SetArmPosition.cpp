@@ -38,11 +38,19 @@ void SetArmPosition::Execute() {
  //to increase angle, motors must be negative
 	float currentAngle = Robot::armPID.get()->GetArmAngle();
 	double output = 0;
+	bool within2Degrees = (2 > fabs(currentAngle - m_Angle));
+	bool withinQuarterDegree(.25 > fabs(currentAngle - m_Angle));
 
-	if(currentAngle < m_Angle)
+	if(withinQuarterDegree){
+		output = 0;
+	}
+	else if(currentAngle < m_Angle)
 	{
 		//go up
-		if(currentAngle < 20)
+		if(within2Degrees){
+			output = -.2;
+		}
+		else if(currentAngle < 20)
 		{
 			output = -0.3;
 		}
@@ -52,7 +60,10 @@ void SetArmPosition::Execute() {
 		}
 	}
 	else if (currentAngle > m_Angle){
-		if (currentAngle < 20)
+		if(within2Degrees){
+			output = .2;
+		}
+		else if (currentAngle < 20)
 		{
 			output = 0.3;
 		}

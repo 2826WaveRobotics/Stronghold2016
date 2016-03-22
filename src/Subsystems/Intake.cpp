@@ -50,7 +50,7 @@ void Intake::ToggleIntake() {
 }
 
 void Intake::SetIntakeOn() {
-	mainIntake.get()->Set(0.9);
+	mainIntake.get()->Set(1);
 }
 
 void Intake::SetIntakeOff() {
@@ -58,7 +58,7 @@ void Intake::SetIntakeOff() {
 }
 
 void Intake::SetIntakeOut(){
-	mainIntake.get()->Set(-0.9);
+	mainIntake.get()->Set(-1);
 }
 
 void Intake::SetSecondaryOff() {
@@ -66,7 +66,11 @@ void Intake::SetSecondaryOff() {
 }
 
 void Intake::SetSecondaryOn() {
-	secondIntake.get()->Set(-.9);
+	secondIntake.get()->Set(-1);
+}
+
+void Intake::SetSecondaryOut(){
+	secondIntake.get()->Set(1);
 }
 
 void Intake::ToggleSecondary() {

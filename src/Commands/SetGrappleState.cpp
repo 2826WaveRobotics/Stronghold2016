@@ -39,7 +39,7 @@ SetGrappleState::SetGrappleState(GrappleState position): Command() {
 
 // Called just before this Command runs the first time
 void SetGrappleState::Initialize() {
-	Robot::grappleClimb.get()->setGrappleState(m_position);
+	Robot::grappleClimb.get()->SetGrappleState(m_position);
 }
 
 // Called repeatedly when this Command is scheduled to run

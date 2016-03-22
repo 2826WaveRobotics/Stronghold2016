@@ -78,7 +78,7 @@ void ShooterTurretPID::SetTurretCylinder(TurretState state){
 	if(state == Turret_Straight){
 		turretCylinder.get()->Set(false);
 	}
-	else if(state == Turret_Angled && Robot::armPID.get()->GetArmAngle() > 4.0){
+	else if(state == Turret_Angled && Robot::armPID.get()->GetArmAngle() > 3.0){
 		turretCylinder.get()->Set(true);
 	}
 
