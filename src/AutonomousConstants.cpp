@@ -74,3 +74,24 @@ double AutonomousConstants::GetShooterAngle()
 			break;
 	}
 }
+
+double AutonomousConstants::GetHeading(){
+	switch(g_startingLocation){
+		case 1:
+		default:
+			return c_location1;
+			break;
+		case 2:
+			return c_location2;
+			break;
+		case 3:
+			return c_location3;
+			break;
+		case 4:
+			return c_location4;
+			break;
+		case 5:
+			return c_location5;
+			break;
+	}
+}

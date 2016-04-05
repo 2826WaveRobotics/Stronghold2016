@@ -66,7 +66,8 @@ bool DefenseCrossedSmart::IsFinished() {
 			break;
 		case PitchStepFlat:
 			std::cout<<" ------------------- Pitch Step Flat ---------------------" << std::endl;
-			IsPitchFlat = (fabs (CurrentPitch) < 3.0);
+			//IsPitchFlat = (fabs (CurrentPitch) < 3.0);
+			IsPitchFlat = ((-1 < CurrentPitch) && (CurrentPitch < 3.0));
 			break;
 		case PitchStepIncreaseBack:
 			if (CurrentPitch > 4.5){

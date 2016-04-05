@@ -92,5 +92,5 @@ void Intake::SetBallRelease(ReleaseState state) {
 
 bool Intake::IsBallDetected()
 {
-	return !(ballDetector.get()->Get());
+	return (ballDetector.get()->Get()); //flipped for comp bot.. used to return the NOT.
 }

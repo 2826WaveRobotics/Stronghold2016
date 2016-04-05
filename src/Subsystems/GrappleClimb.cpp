@@ -58,12 +58,12 @@ void GrappleClimb::SetClimbState(ClimbState state) {
 					climbMotor2.get()->Set(0);
 					break;
 				case Climb_Deploy:
-					climbMotor1.get()->Set(-0.9);
-					climbMotor2.get()->Set(0.9);
+					climbMotor1.get()->Set(0.9);
+					climbMotor2.get()->Set(-0.9);
 					break;
 				case Climb_Release:
-					climbMotor1.get()->Set(0);
-					climbMotor2.get()->Set(0);
+					climbMotor1.get()->Set(-.5);
+					climbMotor2.get()->Set(.5);
 					break;
 		}
 }

@@ -56,6 +56,8 @@ class DrivePID: public PIDSubsystem {
 	bool GetDefenseCrossed() {return defenseIsCrossed;};
 	void ResetPitchAndRoll();
 
+	void SetDrive_Brake(bool brake);
+
  private:
 	bool defenseIsCrossed;
 	double m_resetPitch;

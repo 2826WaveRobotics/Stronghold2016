@@ -68,8 +68,8 @@ public:
 
 	static std::shared_ptr<AHRS> m_gyro;
 
-	static std::shared_ptr<Talon> lightOutputRight;
-	static std::shared_ptr<Talon> lightOutputLeft;
+	static std::shared_ptr<Solenoid> lightOutput1;
+	static std::shared_ptr<Solenoid> lightOutput2;
 
 
 	static void init();

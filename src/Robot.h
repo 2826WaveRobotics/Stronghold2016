@@ -75,8 +75,11 @@ private:
 	bool m_lastButtonB;
 	bool m_lastButtonA;
 
+	bool m_armWasActive;
+
 	SendableChooser *m_defenseSelector;
 	SendableChooser *m_locationSelector;
+	SendableChooser *m_allianceSelector;
 
 	std::unique_ptr<Command> m_armAngleIntakeCommand;
 	bool m_armAngleIntakeReset;
@@ -84,5 +87,8 @@ private:
 	std::unique_ptr<Command> m_triggerHoodMedium;
 	std::unique_ptr<Command> m_triggerHoodHigh;
 	bool m_triggerHoodReset;
+
+	std::unique_ptr<Command> m_redAlliance;
+	std::unique_ptr<Command> m_blueAlliance;
 };
 #endif

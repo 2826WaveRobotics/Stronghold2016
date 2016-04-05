@@ -20,12 +20,19 @@
  const double c_shootAngle2 = 30;
  const double c_shootAngle3 = 0;
  const double c_shootAngle4 = -30;
- const double c_shootAngle5 = -45;
+ const double c_shootAngle5 = -20;
+
+ //Headings
+ const float c_location1 = 0;
+ const float c_location2 = 0;
+ const float c_location3 = 5; //for heading of robot in auto
+ const float c_location4 = -2;
+ const float c_location5 = -20;
 
 
  // available intake arm positions
- const double c_armIntakePosition = 10;
- const double c_armLowPosition = 5;
+ const double c_armIntakePosition = 7;
+ const double c_armLowPosition = 4;
  const double c_armTravelPosition = 40;
  const double c_armHighPosition = 60;
 

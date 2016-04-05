@@ -39,10 +39,10 @@ bool AutoDriveDistance::IsFinished()
 	m_distanceTraveled = Robot::drivePID->GetDistanceTraveled();
 	std::cout << "Distance to Go: " << m_distance << "\tTraveled: " << Robot::drivePID->GetDistanceTraveled() << "\tPower: " << m_power << std::endl;
 
-	if(m_power > 0 && m_distanceTraveled < m_distance){
+	if(m_power > 0 && m_distanceTraveled > m_distance){  //driving forwards
 		return true;
 	}
-	else if(m_power < 0 && m_distanceTraveled > m_distance){
+	else if(m_power < 0 && m_distanceTraveled < m_distance){  //driving backwards
 		return true;
 	}
 

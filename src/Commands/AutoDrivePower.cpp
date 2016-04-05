@@ -20,6 +20,7 @@ void AutoDrivePower::Initialize()
 	Robot::drivePID->ResetEncoders();
 	//Robot::drivePID->SetPIDs(.055, 0, .08); // .035 //comp = .055
 	Robot::drivePID->SetDirection(m_heading); //sets up the PID for moving straight
+	//Robot::drivePID->Enable();
 }
 
 void AutoDrivePower::Execute()
@@ -43,9 +44,10 @@ bool AutoDrivePower::IsFinished()
 	}
 
 	else if(m_timeout){
-		if(m_timer.Get() > .25){
+		if(m_timer.Get() > 1.55){
 			return true;
 		}
+		return false;
 	}
 	else if(Robot::armPID.get()->AreLowBarSensorsTripped() && m_lookForLowBar){
 		return true;
@@ -58,6 +60,7 @@ bool AutoDrivePower::IsFinished()
 void AutoDrivePower::End()
 {
 	Robot::drivePID->SetSidePower(0,0); // stop moving
+	//Robot::drivePID->Disable();
 }
 
 void AutoDrivePower::Interrupted()

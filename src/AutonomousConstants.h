@@ -14,6 +14,7 @@ class AutonomousConstants
 
 		double GetDistanceToTravel();
 		double GetShooterAngle();
+		double GetHeading();
 
 };
 
